@@ -7,7 +7,7 @@ interface OtpInputProps {
   onChange: (value: string) => void;
 }
 
-const Slot = ({ char, hasFakeCaret }: { char: string; hasFakeCaret: boolean }) => {
+const Slot = ({ char, hasFakeCaret }: { char: string | null; hasFakeCaret: boolean }) => {
   return (
     <div
       className={cn(

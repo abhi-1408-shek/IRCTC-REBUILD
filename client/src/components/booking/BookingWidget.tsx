@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "wouter";
+import { useLocation } from "wouter";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,7 +39,7 @@ const bookingSchema = z.object({
 export function BookingWidget() {
   const [openFrom, setOpenFrom] = useState(false);
   const [openTo, setOpenTo] = useState(false);
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
 
   const form = useForm<z.infer<typeof bookingSchema>>({
     defaultValues: {
@@ -55,7 +55,7 @@ export function BookingWidget() {
       to: data.to,
       date: format(data.date, "yyyy-MM-dd"),
     });
-    navigate(`/trains?${params}`);
+    setLocation(`/trains?${params}`);
   }
 
   return (
