@@ -8,7 +8,7 @@ import {
 import { Menu, Train } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home' },
@@ -17,37 +17,73 @@ const NAV_ITEMS = [
   { href: '/auth', label: 'Login' }
 ];
 
+const navItemVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  })
+};
+
 export function Navbar() {
   const isMobile = useIsMobile();
 
   const NavLinks = () => (
     <>
-      {NAV_ITEMS.map(item => (
-        <Link key={item.href} href={item.href}>
-          <Button variant="ghost" className="relative group">
-            {item.label}
-            <motion.span
-              className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"
-              initial={{ width: "0%" }}
-              whileHover={{ width: "100%" }}
-            />
-          </Button>
-        </Link>
+      {NAV_ITEMS.map((item, i) => (
+        <motion.div
+          key={item.href}
+          custom={i}
+          initial="hidden"
+          animate="visible"
+          variants={navItemVariants}
+        >
+          <Link href={item.href}>
+            <Button 
+              variant="ghost" 
+              className="relative group overflow-hidden"
+            >
+              <span className="relative z-10">{item.label}</span>
+              <motion.div
+                className="absolute bottom-0 left-0 h-[2px] w-full bg-primary"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+            </Button>
+          </Link>
+        </motion.div>
       ))}
     </>
   );
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 100 }}
+      className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    >
       <div className="container flex h-14 items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <motion.div
-            whileHover={{ rotate: 360 }}
+            whileHover={{ rotate: 360, scale: 1.2 }}
             transition={{ duration: 0.5 }}
           >
             <Train className="h-6 w-6 text-primary" />
           </motion.div>
-          <span className="font-bold text-xl bg-gradient-to-r from-primary to-orange-600 text-transparent bg-clip-text">IRCTC</span>
+          <motion.span
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="font-bold text-xl bg-gradient-to-r from-primary to-orange-600 text-transparent bg-clip-text"
+          >
+            IRCTC
+          </motion.span>
         </Link>
 
         {isMobile ? (
@@ -60,9 +96,14 @@ export function Navbar() {
                 </Button>
               </SheetTrigger>
               <SheetContent>
-                <div className="flex flex-col gap-4 mt-4">
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="flex flex-col gap-4 mt-4"
+                >
                   <NavLinks />
-                </div>
+                </motion.div>
               </SheetContent>
             </Sheet>
           </div>
@@ -71,10 +112,16 @@ export function Navbar() {
             <div className="flex gap-6">
               <NavLinks />
             </div>
-            <ThemeToggle />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <ThemeToggle />
+            </motion.div>
           </div>
         )}
       </div>
-    </nav>
+    </motion.nav>
   );
 }

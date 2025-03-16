@@ -8,11 +8,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useEffect, useState } from "react";
 import { getTheme, setTheme } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function ThemeToggle() {
-  const [theme, setThemeState] = useState<"light" | "dark" | "system">(getTheme);
+  const [theme, setThemeState] = useState<"light" | "dark" | "system">("system");
 
   useEffect(() => {
+    setThemeState(getTheme());
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === "class") {
@@ -34,8 +36,29 @@ export function ThemeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="relative">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <AnimatePresence mode="wait" initial={false}>
+            {theme === "dark" ? (
+              <motion.div
+                key="dark"
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 20, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Moon className="h-[1.2rem] w-[1.2rem]" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="light"
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 20, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Sun className="h-[1.2rem] w-[1.2rem]" />
+              </motion.div>
+            )}
+          </AnimatePresence>
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
