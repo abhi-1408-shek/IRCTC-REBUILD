@@ -9,4 +9,4 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NPM_FLAGS = "--no-optional"
+  NPM_FLAGS = "--no-optional --legacy-peer-deps"

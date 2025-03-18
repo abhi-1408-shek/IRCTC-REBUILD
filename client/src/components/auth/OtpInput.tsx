@@ -1,6 +1,5 @@
-import { OTPInput, OTPInputContext } from "input-otp";
-import { useContext } from "react";
-import { cn } from "@/lib/utils";
+import { OTPInput } from 'input-otp';
+import { cn } from '@/lib/utils';
 
 interface OtpInputProps {
   value: string;
@@ -11,9 +10,9 @@ const Slot = ({ char, hasFakeCaret }: { char: string | null; hasFakeCaret: boole
   return (
     <div
       className={cn(
-        "relative w-10 h-12 text-center text-2xl font-semibold border rounded bg-white",
-        "focus:border-primary focus:ring-1 focus:ring-primary",
-        hasFakeCaret && "animate-fake-caret"
+        'relative w-10 h-12 text-center text-2xl font-semibold border rounded bg-white',
+        'focus:border-primary focus:ring-1 focus:ring-primary',
+        hasFakeCaret && 'animate-fake-caret'
       )}
     >
       {char}
