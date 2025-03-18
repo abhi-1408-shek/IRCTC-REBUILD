@@ -1,7 +1,6 @@
 [build]
-  base = "client"
-  publish = "dist"
-  command = "npm install && npm run build"
+  command = "cd client && npm install && npm run build"
+  publish = "client/dist"
 
 [[redirects]]
   from = "/*"
@@ -10,4 +9,4 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NPM_VERSION = "10"
+  NPM_FLAGS = "--no-optional"
