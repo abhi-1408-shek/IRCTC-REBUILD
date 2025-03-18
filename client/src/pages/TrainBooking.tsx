@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Navbar } from "@/components/layout/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -37,7 +36,7 @@ export default function TrainBooking() {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof bookingSchema>) => {
+  const onSubmit = async (_data: z.infer<typeof bookingSchema>) => {
     try {
       toast({
         title: "Success",
@@ -73,8 +72,7 @@ export default function TrainBooking() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         <Card className="max-w-2xl mx-auto">
           <CardHeader>

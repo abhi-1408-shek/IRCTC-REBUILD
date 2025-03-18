@@ -42,3 +42,27 @@ export const CLASS_TYPES = [
   { value: 'SL', label: 'Sleeper' },
   { value: '2S', label: 'Second Sitting' }
 ];
+
+export const THEME_COLORS = {
+  primary: {
+    light: '#3B82F6',
+    dark: '#60A5FA'
+  },
+  secondary: {
+    light: '#F97316',
+    dark: '#FB923C'
+  }
+};
+
+export const ANIMATION_CONFIG = {
+  spring: {
+    stiff: { type: 'spring', stiffness: 300, damping: 30 },
+    soft: { type: 'spring', stiffness: 50, damping: 20 },
+    bounce: { type: 'spring', stiffness: 200, damping: 10 }
+  },
+  transition: {
+    fast: { duration: 0.2 },
+    normal: { duration: 0.3 },
+    slow: { duration: 0.5 }
+  }
+};

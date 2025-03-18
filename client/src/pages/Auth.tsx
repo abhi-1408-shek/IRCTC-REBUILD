@@ -54,7 +54,7 @@ export default function Auth() {
     },
   });
 
-  const onLogin = async (data: z.infer<typeof loginSchema>) => {
+  const onLogin = async (_data: z.infer<typeof loginSchema>) => {
     try {
       setShowOtp(true);
     } catch (error) {
@@ -66,7 +66,7 @@ export default function Auth() {
     }
   };
 
-  const onRegister = async (data: z.infer<typeof registerSchema>) => {
+  const onRegister = async (_data: z.infer<typeof registerSchema>) => {
     try {
       setShowOtp(true);
     } catch (error) {
@@ -97,7 +97,7 @@ export default function Auth() {
 
   if (showOtp) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-background">
         <Navbar />
         <div className="container mx-auto px-4 py-8">
           <Card className="max-w-md mx-auto">
@@ -121,7 +121,7 @@ export default function Auth() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Navbar />
       <div className="container mx-auto px-4 py-8">
         <Card className="max-w-md mx-auto">
