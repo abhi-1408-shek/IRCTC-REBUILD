@@ -4,6 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
+    "lint-staged": "lint-staged",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
